@@ -1,0 +1,148 @@
+:root {
+    --f1-red: #e10600;
+    --f1-dark: #111;
+    --f1-gray: #f5f5f5;
+}
+
+html {
+    font-size: 14px;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    background-color: var(--f1-gray);
+    font-family: Arial, Helvetica, sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+.navbar {
+    background-color: var(--f1-dark) !important;
+    padding: 15px 30px;
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.navbar .nav-link {
+    color: white !important;
+    font-weight: bold;
+}
+
+.navbar .nav-link:hover {
+    color: var(--f1-red) !important;
+}
+
+
+h1, h2 {
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.btn-primary {
+    background-color: var(--f1-red);
+    border-color: var(--f1-red);
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #b00500;
+    border-color: #b00500;
+}
+
+.btn-danger {
+    font-weight: bold;
+}
+
+.table {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--f1-dark);
+    color: white;
+}
+
+.card {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.f1-home {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.f1-home h1 {
+    font-size: 2.7rem;
+}
+
+.f1-home p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.f1-hero {
+    background: linear-gradient(135deg, #111, #e10600);
+    color: white;
+    padding: 70px 25px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+}
+
+.f1-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.f1-actions .btn {
+    padding: 10px 25px;
+    border-radius: 6px;
+}
+
+.f1-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 35px;
+}
+
+.f1-card {
+    background-color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+.f1-card h3 {
+    margin-bottom: 15px;
+}
+
+.alert {
+    border-radius: 8px;
+}

@@ -1,0 +1,59 @@
+@* Indica que este ficheiro é uma página Razor acessível por rota. *@
+@page
+@* Associa esta página ao PageModel IndexModel, definido no ficheiro Index.cshtml.cs. *@
+@model IndexModel
+
+@{
+    // Define o título da página inicial, normalmente usado pelo layout.
+    ViewData["Title"] = "Home";
+}
+
+@* Container principal da página inicial, com classe CSS personalizada para o estilo da homepage. *@
+<div class="f1-home">
+    @* Secção de destaque/hero da página inicial. *@
+    <div class="f1-hero">
+        @* Título principal da aplicação. *@
+        <h1>🏎️ F1 Mania</h1>
+
+        @* Pequena descrição do objetivo da aplicação. *@
+        <p>
+            Aplicação web para consultar informações sobre a Fórmula 1, incluindo equipas, pilotos, corridas e resultados.
+        </p>
+
+    </div>
+
+    @* Grelha de cartões que serve como menu visual para as principais áreas da aplicação. *@
+    <div class="f1-card-grid">
+        @* Cartão que encaminha o utilizador para a listagem de equipas. *@
+        <div class="card f1-card">
+            <h3>Equipas</h3>
+            <p>Conhece as equipas de Fórmula 1.</p>
+            @* Link Razor que redireciona para a página /Teams/Index. *@
+            <a asp-page="/Teams/Index" class="btn btn-primary">Ver equipas</a>
+        </div>
+
+        @* Cartão que encaminha o utilizador para a listagem de pilotos. *@
+        <div class="card f1-card">
+            <h3>Pilotos</h3>
+            <p>Conhece os pilotos de Fórmula 1.</p>
+            @* Link Razor que redireciona para a página /Drivers/Index. *@
+            <a asp-page="/Drivers/Index" class="btn btn-primary">Ver pilotos</a>
+        </div>
+
+        @* Cartão que encaminha o utilizador para a listagem de corridas. *@
+        <div class="card f1-card">
+            <h3>Corridas</h3>
+            <p>Conhece os Grandes Prémios, datas e circuitos de Fórmula 1.</p>
+            @* Link Razor que redireciona para a página /Races/Index. *@
+            <a asp-page="/Races/Index" class="btn btn-primary">Ver corridas</a>
+        </div>
+
+        @* Cartão que encaminha o utilizador para a listagem de resultados. *@
+        <div class="card f1-card">
+            <h3>Resultados</h3>
+            <p>Consulta os últimos resultados de Fórmula 1.</p>
+            @* Link Razor que redireciona para a página /RaceDrivers/Index. *@
+            <a asp-page="/RaceDrivers/Index" class="btn btn-primary">Ver resultados</a>
+        </div>
+    </div>
+</div>

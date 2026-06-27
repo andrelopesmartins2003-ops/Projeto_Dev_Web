@@ -1,0 +1,83 @@
+@* Define esta página como uma Razor Page. *@
+@page
+@* Liga esta vista ao respetivo PageModel (.cs). *@
+@model Projeto.Pages.RaceDrivers.DetailsModel
+
+<h1>Resultados - @Model.Race?.GrandPrixName</h1>
+
+<p>
+    <strong>Data:</strong> @Model.Race?.Date.ToShortDateString()
+</p>
+
+<p>
+    <strong>Circuito:</strong> @Model.Race?.Circuit
+</p>
+
+<!-- Tabela utilizada para apresentar os dados. -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Posição</th>
+            <th>Piloto</th>
+            <th>Equipa</th>
+            <th>Pontos</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+@* Percorre todos os elementos da coleção para os apresentar. *@
+    @foreach (var item in Model.RaceDrivers)
+        {
+            <tr>
+                <td>@item.Position</td>
+                <td>@item.Driver?.Name</td>
+                <td>@item.Driver?.Team?.Name</td>
+                <td>
+                    @{
+                        var points = item.Position switch
+                        {
+                            "1" => 25,
+                            "2" => 18,
+                            "3" => 15,
+                            "4" => 12,
+                            "5" => 10,
+                            "6" => 8,
+                            "7" => 6,
+                            "8" => 4,
+                            "9" => 2,
+                            "10" => 1,
+                            _ => 0
+                        };
+                    }
+
+                    @points
+                </td>
+                                <td>
+@* Executa este bloco apenas se a condição for verdadeira. *@
+                    @if (User.IsInRole("Admin"))
+                    {
+<!-- Link para outra Razor Page da aplicação. -->
+                        <a asp-page="Edit"
+                        asp-route-raceId="@item.RaceId"
+                        asp-route-driverId="@item.DriverId"
+                        class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+
+<!-- Link para outra Razor Page da aplicação. -->
+                        <a asp-page="Delete"
+                        asp-route-raceId="@item.RaceId"
+                        asp-route-driverId="@item.DriverId"
+                        class="btn btn-danger btn-sm">
+                            Eliminar
+                        </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Link para outra Razor Page da aplicação. -->
+<a asp-page="Index" class="btn btn-secondary">Voltar</a>

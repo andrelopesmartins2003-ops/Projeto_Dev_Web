@@ -1,0 +1,49 @@
+@* Define esta página como uma Razor Page. *@
+@page
+@* Liga esta vista ao respetivo PageModel (.cs). *@
+@model Projeto.Pages.RaceDrivers.EditModel
+
+<h1>Editar participação</h1>
+
+@* Executa este bloco apenas se a condição for verdadeira. *@
+@if (Model.RaceDriver == null)
+{
+    <p>Participação não encontrada.</p>
+}
+else
+{
+<!-- Formulário utilizado para enviar os dados para o servidor. -->
+    <form method="post">
+<!-- Liga este campo à propriedade correspondente do modelo. -->
+        <input type="hidden" asp-for="RaceDriver.RaceId" />
+<!-- Liga este campo à propriedade correspondente do modelo. -->
+        <input type="hidden" asp-for="RaceDriver.DriverId" />
+
+        <div class="mb-3">
+            <label>Corrida</label>
+            <input value="@Model.RaceDriver.Race?.GrandPrixName" class="form-control" disabled />
+        </div>
+
+        <div class="mb-3">
+            <label>Piloto</label>
+            <input value="@Model.RaceDriver.Driver?.Name" class="form-control" disabled />
+        </div>
+
+        <div class="form-group mb-3">
+<!-- Liga este campo à propriedade correspondente do modelo. -->
+            <label asp-for="RaceDriver.Position">Posição</label>
+<!-- Liga este campo à propriedade correspondente do modelo. -->
+            <input asp-for="RaceDriver.Position" class="form-control" />
+<!-- Mostra mensagens de validação para este campo. -->
+            <span asp-validation-for="RaceDriver.Position" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar alterações</button>
+<!-- Link para outra Razor Page da aplicação. -->
+        <a asp-page="Index" class="btn btn-secondary">Voltar</a>
+    </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

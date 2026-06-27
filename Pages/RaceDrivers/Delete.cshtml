@@ -1,0 +1,44 @@
+@* Define esta página como uma Razor Page. *@
+@page
+@* Liga esta vista ao respetivo PageModel (.cs). *@
+@model Projeto.Pages.RaceDrivers.DeleteModel
+
+<h1>Eliminar participação</h1>
+
+@* Executa este bloco apenas se a condição for verdadeira. *@
+@if (Model.RaceDriver == null)
+{
+    <p>Participação não encontrada.</p>
+}
+else
+{
+    <div class="alert alert-warning">
+        Tens a certeza que queres eliminar esta participação?
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-2">Corrida</dt>
+        <dd class="col-sm-10">@Model.RaceDriver.Race?.GrandPrixName</dd>
+
+        <dt class="col-sm-2">Piloto</dt>
+        <dd class="col-sm-10">@Model.RaceDriver.Driver?.Name</dd>
+
+        <dt class="col-sm-2">Equipa</dt>
+        <dd class="col-sm-10">@Model.RaceDriver.Driver?.Team?.Name</dd>
+
+        <dt class="col-sm-2">Posição</dt>
+        <dd class="col-sm-10">@Model.RaceDriver.Position</dd>
+    </dl>
+
+<!-- Formulário utilizado para enviar os dados para o servidor. -->
+    <form method="post">
+<!-- Liga este campo à propriedade correspondente do modelo. -->
+        <input type="hidden" asp-for="RaceDriver.RaceId" />
+<!-- Liga este campo à propriedade correspondente do modelo. -->
+        <input type="hidden" asp-for="RaceDriver.DriverId" />
+
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+<!-- Link para outra Razor Page da aplicação. -->
+        <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+}

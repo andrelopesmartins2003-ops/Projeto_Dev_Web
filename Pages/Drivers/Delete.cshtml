@@ -1,0 +1,55 @@
+@* Define esta página como uma Razor Page e, quando existe {id:int}, indica que recebe um Id inteiro pela rota. *@
+@page "{id:int}"
+@* Liga a página visual ao respetivo PageModel, onde está a lógica em C#. *@
+@model Projeto.Pages.Drivers.DeleteModel
+
+@* Título principal apresentado no topo da página. *@
+<h1>Eliminar piloto</h1>
+
+@* Verifica se o piloto foi encontrado antes de tentar mostrar os seus dados. *@
+@if (Model.Driver == null)
+{
+    @* Mensagem apresentada quando não existe piloto com o Id indicado. *@
+    <p>Piloto não encontrado.</p>
+}
+else
+{
+    @* Caixa de aviso Bootstrap usada para alertar antes da eliminação. *@
+    <div class="alert alert-warning">
+        @* Mensagem de confirmação para evitar eliminações acidentais. *@
+        Tens a certeza que queres eliminar este piloto?
+    </div>
+
+    @* Lista de descrição usada para apresentar os dados do piloto de forma organizada. *@
+    <dl class="row">
+        @* Define o nome do campo que vai ser apresentado ao utilizador. *@
+        <dt class="col-sm-2">Nome</dt>
+        @* Mostra o nome do piloto carregado a partir da base de dados. *@
+        <dd class="col-sm-10">@Model.Driver.Name</dd>
+
+        @* Define o nome do campo que vai ser apresentado ao utilizador. *@
+        <dt class="col-sm-2">Idade</dt>
+        @* Mostra a idade do piloto carregada a partir da base de dados. *@
+        <dd class="col-sm-10">@Model.Driver.Age</dd>
+
+        @* Define o nome do campo que vai ser apresentado ao utilizador. *@
+        <dt class="col-sm-2">Nacionalidade</dt>
+        @* Mostra a nacionalidade do piloto carregada a partir da base de dados. *@
+        <dd class="col-sm-10">@Model.Driver.Nationality</dd>
+
+        @* Define o nome do campo que vai ser apresentado ao utilizador. *@
+        <dt class="col-sm-2">Equipa</dt>
+        @* Mostra o nome da equipa do piloto; o ?. evita erro caso a equipa seja nula. *@
+        <dd class="col-sm-10">@Model.Driver.Team?.Name</dd>
+    </dl>
+
+    @* Cria um formulário que envia os dados para o método OnPostAsync do PageModel. *@
+    <form method="post">
+        @* Campo escondido que mantém o Id do piloto durante a edição ou eliminação. *@
+        <input type="hidden" asp-for="Driver.Id" />
+        @* Botão que submete o formulário e executa o método OnPostAsync. *@
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        @* Link que cancela a eliminação e regressa à listagem de pilotos. *@
+        <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+}

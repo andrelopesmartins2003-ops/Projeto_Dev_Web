@@ -1,0 +1,13 @@
+@* Indica que este ficheiro é uma página Razor acessível por rota. *@
+@page
+@* Associa esta página ao PageModel PrivacyModel, definido no ficheiro Privacy.cshtml.cs. *@
+@model PrivacyModel
+@{
+    // Define o título da página de privacidade.
+    ViewData["Title"] = "Privacy Policy";
+}
+@* Mostra o título definido em ViewData. *@
+<h1>@ViewData["Title"]</h1>
+
+@* Texto informativo padrão da página de privacidade. *@
+<p>Use this page to detail your site's privacy policy.</p>

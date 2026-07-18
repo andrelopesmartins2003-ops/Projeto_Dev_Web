@@ -1,29 +1,27 @@
-// Importa as anotações de dados utilizadas para validação dos modelos.
 using System.ComponentModel.DataAnnotations;
-
-// Namespace onde se encontram as classes que representam as entidades da base de dados.
 
 namespace Projeto.Models;
 
-// Classe que representa a entidade Race da aplicação.
 public class Race
 {
+    //Validação do nome, data e país onde a corrida se situa.
+
     // Chave primária da entidade.
     public int Id { get; set; }
 
-    // Campo obrigatório. A validação impede que fique vazio.
+    //Local do grande prémio
     [Required(ErrorMessage = "O nome do Grande Prémio é obrigatório.")]
-    // Define o número máximo de caracteres permitido.
-    [StringLength(100)]
-    // Nome do Grande Prémio.
+    [StringLength(100, MinimumLength = 2, ErrorMessage = "O nome do Grande Prémio deve ter entre 2 e 100 caracteres.")]
     public string GrandPrixName { get; set; } = "";
 
-    // Campo obrigatório. A validação impede que fique vazio.
+    //Data do Grande Prémio
     [Required(ErrorMessage = "A data da corrida é obrigatória.")]
-    // Data em que a corrida é realizada.
+    [DataType(DataType.Date, ErrorMessage = "A data deve ser válida.")]
     public DateTime Date { get; set; }
 
-    // Nome do circuito.
+    //Nome do circuito.
+    [Required(ErrorMessage = "O nome do circuito é obrigatório.")]
+    [StringLength(100, MinimumLength = 2, ErrorMessage = "O nome do circuito deve ter entre 2 e 100 caracteres.")]
     public string? Circuit { get; set; }
 
     // Relação muitos-para-muitos entre pilotos e corridas.

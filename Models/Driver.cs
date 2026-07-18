@@ -1,33 +1,32 @@
-// Importa as anotações de dados utilizadas para validação dos modelos.
 using System.ComponentModel.DataAnnotations;
-
-// Namespace onde se encontram as classes que representam as entidades da base de dados.
 
 namespace Projeto.Models;
 
-// Classe que representa a entidade Driver da aplicação.
 public class Driver
-{
+{   
+    //Validação do nome. idade e nacionalidade e dos pilotos inseridos 
+
     // Chave primária da entidade.
     public int Id { get; set; }
 
-    // Campo obrigatório. A validação impede que fique vazio.
+    //Nome do piloto.
     [Required(ErrorMessage = "O nome do piloto é obrigatório.")]
-    // Define o número máximo de caracteres permitido.
-    [StringLength(100)]
-    // Nome do piloto/equipa.
+    [StringLength(100, MinimumLength = 2, ErrorMessage = "O nome do piloto deve ter entre 2 e 100 caracteres.")]
     public string Name { get; set; } = "";
 
-    // Limita os valores permitidos para esta propriedade.
-    [Range(18, 80, ErrorMessage = "A idade deve estar entre 18 e 80.")]
     // Idade do piloto.
+    [Range(16, 80, ErrorMessage = "A idade deve estar entre 16 e 80.")]
     public int Age { get; set; }
 
     // Nacionalidade do piloto.
+    [Required(ErrorMessage = "A nacionalidade é obrigatória.")]
+    [StringLength(60, MinimumLength = 2, ErrorMessage = "A nacionalidade deve ter entre 2 e 60 caracteres.")]
     public string? Nationality { get; set; }
 
     // Chave estrangeira da equipa associada.
+    [Range(1, int.MaxValue, ErrorMessage = "Deve selecionar uma equipa válida.")]
     public int TeamId { get; set; }
+    
     // Propriedade de navegação para a equipa.
     public Team? Team { get; set; }
 

@@ -1,25 +1,24 @@
-// Importa as anotações de dados utilizadas para validação dos modelos.
 using System.ComponentModel.DataAnnotations;
-
-// Namespace onde se encontram as classes que representam as entidades da base de dados.
 
 namespace Projeto.Models;
 
-// Classe que representa a entidade Team da aplicação.
 public class Team
 {
+    //Validação do nome, país de origem e lista de pilotos da equipa. 
+
     // Chave primária da entidade.
     public int Id { get; set; }
 
-    // Campo obrigatório. A validação impede que fique vazio.
     [Required(ErrorMessage = "O nome da equipa é obrigatório.")]
-    // Define o número máximo de caracteres permitido.
-    [StringLength(100)]
+    [StringLength(100, MinimumLength = 2, ErrorMessage = "O nome da equipa deve ter entre 2 e 100 caracteres.")]
+    
     // Nome do piloto/equipa.
     public string Name { get; set; } = "";
 
     // País de origem da equipa.
-    public string? Country { get; set; }
+    [Required(ErrorMessage = "O país de origem é obrigatório.")]
+    [StringLength(60, MinimumLength = 2, ErrorMessage = "O país de origem deve ter entre 2 e 60 caracteres.")]
+    public string Country { get; set; } = "";
 
     // Lista de pilotos pertencentes à equipa.
     public ICollection<Driver> Drivers { get; set; } = new List<Driver>();

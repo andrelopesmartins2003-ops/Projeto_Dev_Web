@@ -1,5 +1,3 @@
-// Este ficheiro é o ponto de entrada da aplicação. Aqui é onde se configuram os serviços, a ligação à base de dados, a autenticação e as rotas da aplicação.
-// Este código inicializa a aplicação web, define o pipeline HTTP e prepara a execução da aplicação.
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,8 +19,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
 })
+
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
+    options.AccessDeniedPath = "/Errors/403";
+});
 
 var app = builder.Build();
 

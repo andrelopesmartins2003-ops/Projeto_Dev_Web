@@ -1,44 +1,36 @@
-@* Define esta página como uma Razor Page e, quando existe {id:int}, indica que recebe um Id inteiro pela rota. *@
 @page "{id:int}"
-@* Liga a página visual ao respetivo PageModel, onde está a lógica em C#. *@
 @model Projeto.Pages.Drivers.DetailsModel
 
-@* Título principal apresentado no topo da página. *@
+@* Título *@
 <h1>Detalhes do piloto</h1>
 
-@* Verifica se o piloto foi encontrado antes de tentar mostrar os seus dados. *@
+@* Verifica se o piloto foi encontrado e dá uma mensagem de erro quando não encontra *@
 @if (Model.Driver == null)
 {
-    @* Mensagem apresentada quando não existe piloto com o Id indicado. *@
     <p>Piloto não encontrado.</p>
 }
 else
 {
     @* Lista de descrição usada para apresentar os dados do piloto de forma organizada. *@
     <dl class="row">
-        @* Define o nome do campo que vai ser apresentado ao utilizador. *@
+        @* Nome do piloto. *@
         <dt class="col-sm-2">Nome</dt>
-        @* Mostra o nome do piloto carregado a partir da base de dados. *@
         <dd class="col-sm-10">@Model.Driver.Name</dd>
 
-        @* Define o nome do campo que vai ser apresentado ao utilizador. *@
+        @* Idade do piloto. *@
         <dt class="col-sm-2">Idade</dt>
-        @* Mostra a idade do piloto carregada a partir da base de dados. *@
         <dd class="col-sm-10">@Model.Driver.Age</dd>
 
-        @* Define o nome do campo que vai ser apresentado ao utilizador. *@
+        @* Nacionalidade do piloto. *@
         <dt class="col-sm-2">Nacionalidade</dt>
-        @* Mostra a nacionalidade do piloto carregada a partir da base de dados. *@
         <dd class="col-sm-10">@Model.Driver.Nationality</dd>
 
-        @* Define o nome do campo que vai ser apresentado ao utilizador. *@
+        @* Equipa do piloto *@
         <dt class="col-sm-2">Equipa</dt>
-        @* Mostra o nome da equipa do piloto; o ?. evita erro caso a equipa seja nula. *@
         <dd class="col-sm-10">@Model.Driver.Team?.Name</dd>
     </dl>
 
-    @* Cria um link para a página de edição do piloto selecionado. *@
+    @* Butões *@
     <a asp-page="Edit" asp-route-id="@Model.Driver.Id" class="btn btn-warning">Editar</a>
-    @* Link que volta para a listagem de pilotos sem guardar alterações. *@
     <a asp-page="Index" class="btn btn-secondary">Voltar</a>
 }

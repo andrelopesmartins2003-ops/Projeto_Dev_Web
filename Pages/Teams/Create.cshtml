@@ -1,0 +1,33 @@
+@page
+@model Projeto.Pages.Teams.CreateModel
+
+<h1>Criar equipa</h1>
+
+@* O formulário usa method="post", por isso ao clicar em Guardar será chamado o método OnPostAsync do Create.cshtml.cs. *@
+<form method="post">
+    @Html.AntiForgeryToken()
+
+    @* Formulario para criar uma nova equipa, com campos para Nome e País. *@
+    <div class="form-group mb-3">
+        @* Nome *@
+        <label asp-for="Team.Name" class="control-label">Nome</label>
+        <input asp-for="Team.Name" class="form-control" />
+        <span asp-validation-for="Team.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        @* País de Origem *@
+        <label asp-for="Team.Country" class="control-label">País</label>
+        <input asp-for="Team.Country" class="form-control" />
+        <span asp-validation-for="Team.Country" class="text-danger"></span>
+    </div>
+
+    @* Botões *@
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a asp-page="Index" class="btn btn-secondary">Voltar</a>
+</form>
+
+@* Scripts *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,63 +1,49 @@
-@* Define esta página como uma Razor Page e, quando existe {id:int}, indica que recebe um Id inteiro pela rota. *@
-@page
-@* Liga a página visual ao respetivo PageModel, onde está a lógica em C#. *@
 @model Projeto.Pages.Drivers.CreateModel
 
-@* Título principal apresentado no topo da página. *@
+@* Título *@
 <h1>Criar piloto</h1>
 
-@* Cria um formulário que envia os dados para o método OnPostAsync do PageModel. *@
+@* Criar pilotos e atribuir nome, idade, nacionalidade e equipa*@
 <form method="post">
-    @* Agrupa visualmente o campo do formulário e aplica espaçamento através do Bootstrap. *@
+    @Html.AntiForgeryToken()  
+
+    @* Nome do piloto *@
     <div class="form-group mb-3">
-        @* Rótulo associado ao campo Name do piloto. *@
         <label asp-for="Driver.Name">Nome</label>
-        @* Campo onde o utilizador escreve ou altera o nome do piloto. *@
         <input asp-for="Driver.Name" class="form-control" />
-        @* Mostra mensagens de validação relacionadas com o nome do piloto. *@
         <span asp-validation-for="Driver.Name" class="text-danger"></span>
     </div>
 
-    @* Agrupa visualmente o campo do formulário e aplica espaçamento através do Bootstrap. *@
+    @* Idade do piloto *@
     <div class="form-group mb-3">
-        @* Rótulo associado ao campo Age do piloto. *@
         <label asp-for="Driver.Age">Idade</label>
-        @* Campo onde o utilizador escreve ou altera a idade do piloto. *@
         <input asp-for="Driver.Age" class="form-control" />
-        @* Mostra mensagens de validação relacionadas com a idade do piloto. *@
         <span asp-validation-for="Driver.Age" class="text-danger"></span>
     </div>
 
-    @* Agrupa visualmente o campo do formulário e aplica espaçamento através do Bootstrap. *@
+    @* Nacionalidade do piloto*@
     <div class="form-group mb-3">
-        @* Rótulo associado ao campo Nationality do piloto. *@
         <label asp-for="Driver.Nationality">Nacionalidade</label>
-        @* Campo onde o utilizador escreve ou altera a nacionalidade do piloto. *@
         <input asp-for="Driver.Nationality" class="form-control" />
-        @* Mostra mensagens de validação relacionadas com a nacionalidade. *@
         <span asp-validation-for="Driver.Nationality" class="text-danger"></span>
     </div>
 
-    @* Agrupa visualmente o campo do formulário e aplica espaçamento através do Bootstrap. *@
+    @* Equipa do piloto *@
     <div class="form-group mb-3">
-        @* Rótulo associado à equipa escolhida para o piloto. *@
         <label asp-for="Driver.TeamId">Equipa</label>
-        @* Dropdown que guarda no Driver.TeamId o Id da equipa selecionada. *@
         <select asp-for="Driver.TeamId" class="form-control" asp-items="Model.TeamOptions">
-            @* Opção inicial vazia para obrigar o utilizador a escolher uma equipa válida. *@
+            @* Necessário existir equipa *@
             <option value="">-- selecionar equipa --</option>
         </select>
-        @* Mostra mensagens de validação relacionadas com a escolha da equipa. *@
         <span asp-validation-for="Driver.TeamId" class="text-danger"></span>
     </div>
 
-    @* Botão que submete o formulário e executa o método OnPostAsync. *@
+    @* Butões *@
     <button type="submit" class="btn btn-success">Guardar</button>
-    @* Link que volta para a listagem de pilotos sem guardar alterações. *@
     <a asp-page="Index" class="btn btn-secondary">Voltar</a>
 </form>
 
-@* Secção usada para carregar scripts específicos desta página. *@
+@* Scripts *@
 @section Scripts {
     @* Carrega os scripts de validação do lado do cliente. *@
     <partial name="_ValidationScriptsPartial" />

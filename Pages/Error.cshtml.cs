@@ -1,17 +1,16 @@
-// Importa funcionalidades de diagnóstico, usadas para obter o identificador da atividade atual.
+// Imports
 using System.Diagnostics;
-// Importa atributos e tipos MVC, como ResponseCache e IgnoreAntiforgeryToken.
 using Microsoft.AspNetCore.Mvc;
-// Importa a classe PageModel, base das Razor Pages.
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-// Define o namespace onde esta PageModel se encontra.
 namespace Projeto.Pages;
 
 // Impede que a página de erro seja guardada em cache pelo browser ou por proxies.
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
 // Ignora a validação antiforgery nesta página, porque ela pode ser chamada durante erros da aplicação.
 [IgnoreAntiforgeryToken]
+
 // PageModel responsável por preparar os dados apresentados na página Error.cshtml.
 public class ErrorModel : PageModel
 {

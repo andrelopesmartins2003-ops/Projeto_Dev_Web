@@ -1,0 +1,86 @@
+/* Estiliza o link/brand principal da navbar, ou seja, o nome da aplicação. */
+a.navbar-brand {
+  /* Permite que o texto da marca quebre linha se não houver espaço suficiente. */
+  white-space: normal;
+
+  /* Alinha o texto da marca ao centro. */
+  text-align: center;
+
+  /* Permite quebrar palavras compridas para evitar que saiam fora da navbar. */
+  word-break: break-all;
+}
+
+/* Define o estilo geral de todos os links da aplicação. */
+a {
+  /* Define a cor azul usada nos links. */
+  color: #0077cc;
+}
+
+/* Personaliza os botões Bootstrap com a classe btn-primary. */
+.btn-primary {
+  /* Define a cor do texto do botão como branco. */
+  color: #fff;
+
+  /* Define a cor de fundo azul do botão principal. */
+  background-color: #1b6ec2;
+
+  /* Define a cor da borda do botão principal. */
+  border-color: #1861ac;
+}
+
+/* Estiliza links ativos dentro de nav-pills do Bootstrap. */
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  /* Mantém o texto branco no item ativo. */
+  color: #fff;
+
+  /* Usa o mesmo azul do botão principal para indicar seleção. */
+  background-color: #1b6ec2;
+
+  /* Define a cor da borda do item ativo. */
+  border-color: #1861ac;
+}
+
+/* Classe utilitária para adicionar uma borda no topo de um elemento. */
+.border-top {
+  /* Cria uma linha cinzenta clara no topo. */
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Classe utilitária para adicionar uma borda na parte inferior de um elemento. */
+.border-bottom {
+  /* Cria uma linha cinzenta clara em baixo. */
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Classe usada para aplicar uma sombra subtil a elementos como a navbar. */
+.box-shadow {
+  /* Cria uma sombra leve, dando profundidade visual sem ficar muito marcada. */
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+/* Estiliza o botão de aceitação de política/cookies, caso exista na aplicação. */
+button.accept-policy {
+  /* Define o tamanho da fonte para 1rem, consistente com o texto padrão. */
+  font-size: 1rem;
+
+  /* Herda a altura da linha do elemento pai para manter alinhamento visual. */
+  line-height: inherit;
+}
+
+/* Estiliza o rodapé da aplicação. */
+.footer {
+  /* Posiciona o rodapé de forma absoluta relativamente ao contentor/página. */
+  position: absolute;
+
+  /* Coloca o rodapé encostado à parte inferior. */
+  bottom: 0;
+
+  /* Faz o rodapé ocupar toda a largura disponível. */
+  width: 100%;
+
+  /* Impede que o texto do rodapé quebre linha. */
+  white-space: nowrap;
+
+  /* Define a altura visual da linha do rodapé. */
+  line-height: 60px;
+}

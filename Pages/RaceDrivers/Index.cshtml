@@ -1,0 +1,38 @@
+@page
+@model Projeto.Pages.RaceDrivers.IndexModel
+
+<h1>Resultados das Corridas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Grande Prémio</th>
+            <th>Data</th>
+            <th>Circuito</th>
+            <th>Vencedor</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+@* Percorre todos os elementos da coleção para os apresentar. *@
+        @foreach (var race in Model.Races)
+        {
+            <tr>
+                <td>@race.GrandPrixName</td>
+                <td>@race.Date.ToShortDateString()</td>
+                <td>@race.Circuit</td>
+                <td>
+                     <strong>@race.Winner</strong>
+                </td>
+                <td>
+                <a asp-page="Details"
+                        asp-route-raceId="@race.Id"
+                        class="btn btn-primary btn-sm">
+                            Ver classificação
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,41 @@
+@page "{id:int}"
+@model Projeto.Pages.Races.EditModel
+
+@* Título *@
+<h1>Editar corrida</h1>
+
+@* Formulário que envia os dados alterados por POST para o método OnPostAsync. *@
+<form method="post">
+    @Html.AntiForgeryToken()  @* Token anti-falsificação para proteger contra CSRF. *@
+    <input type="hidden" asp-for="Race.Id" />
+
+    @* Editar o nome do Grande Prémio. *@
+    <div class="form-group mb-3">
+        <label asp-for="Race.GrandPrixName">Grande Prémio</label>
+        <input asp-for="Race.GrandPrixName" class="form-control" />
+        <span asp-validation-for="Race.GrandPrixName" class="text-danger"></span>
+    </div>
+
+    @* Editar a data da corrida. *@
+    <div class="form-group mb-3">
+        <label asp-for="Race.Date">Data</label>
+        <input asp-for="Race.Date" type="date" class="form-control" />
+        <span asp-validation-for="Race.Date" class="text-danger"></span>
+    </div>
+
+    @* Editar o circuito. *@
+    <div class="form-group mb-3">
+        <label asp-for="Race.Circuit">Circuito</label>
+        <input asp-for="Race.Circuit" class="form-control" />
+        <span asp-validation-for="Race.Circuit" class="text-danger"></span>
+    </div>
+
+    @* Botões *@
+    <button type="submit" class="btn btn-success">Guardar alterações</button>
+    <a asp-page="Index" class="btn btn-secondary">Voltar</a>
+</form>
+
+@* Scripts *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

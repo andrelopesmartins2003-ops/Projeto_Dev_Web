@@ -1,0 +1,36 @@
+@page "{id:int}"
+@model Projeto.Pages.Teams.EditModel
+
+<h1>Editar equipa</h1>
+
+@* O formulário envia os dados alterados para o método OnPostAsync do Edit.cshtml.cs. *@
+<form method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Team.Id" />
+
+    <div class="form-group mb-3">
+        @* Campo editável para o nome da equipa. *@
+        <label asp-for="Team.Name">Nome</label>
+        <input asp-for="Team.Name" class="form-control" />
+        @* Mensagem de validação associada ao nome. *@
+        <span asp-validation-for="Team.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        @* Campo editável para o país da equipa. *@
+        <label asp-for="Team.Country">País</label>
+        <input asp-for="Team.Country" class="form-control" />
+        @* Mensagem de validação associada ao país. *@
+        <span asp-validation-for="Team.Country" class="text-danger"></span>
+    </div>
+
+    @* Submete as alterações. *@
+    <button type="submit" class="btn btn-success">Guardar alterações</button>
+    @* Volta à listagem sem gravar. *@
+    <a asp-page="Index" class="btn btn-secondary">Voltar</a>
+</form>
+
+@* Scripts de validação usados pelos Tag Helpers asp-validation-for. *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

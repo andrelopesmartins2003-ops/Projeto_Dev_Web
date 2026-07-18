@@ -1,0 +1,72 @@
+@page
+@model Projeto.Pages.Teams.IndexModel
+
+<h1>Classificação de Equipas</h1>
+
+@* Só mostra o botão de criação a utilizadores com role Admin. *@
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Criar nova equipa</a>
+    </p>
+}
+
+@* Tabela principal da página. Cada linha representa uma equipa da coleção Model.Teams. *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Posição</th>
+            <th>Equipa</th>
+            <th>País</th>
+            <th>Pilotos</th>
+            <th>Pontos</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @{
+            // A posição começa em 1 e aumenta a cada equipa apresentada.
+            var position = 1;
+        }
+
+        @* Percorre todas as equipas já ordenadas por pontos no PageModel. *@
+        @foreach (var team in Model.Teams)
+        {
+            <tr>
+                <td>@position</td>
+                <td>@team.Name</td>
+                <td>@team.Country</td>
+                <td>@team.DriverCount</td>
+                <td><strong>@team.Points</strong></td>
+                <td>
+                    @* Qualquer utilizador pode consultar os detalhes da equipa. *@
+                    <a asp-page="Details"
+                       asp-route-id="@team.Id"
+                       class="btn btn-primary btn-sm">
+                        Detalhes
+                    </a>
+
+                    @* As ações de alteração e eliminação ficam disponíveis apenas para administradores. *@
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-page="Edit"
+                           asp-route-id="@team.Id"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+
+                        <a asp-page="Delete"
+                           asp-route-id="@team.Id"
+                           class="btn btn-danger btn-sm">
+                            Eliminar
+                        </a>
+                    }
+                </td>
+            </tr>
+
+            @* Incrementa a posição para a próxima equipa da tabela. *@
+            position++;
+        }
+    </tbody>
+</table>

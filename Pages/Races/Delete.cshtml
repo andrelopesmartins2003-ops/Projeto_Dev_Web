@@ -1,0 +1,43 @@
+@page "{id:int}"
+@model Projeto.Pages.Races.DeleteModel
+
+@* Título *@
+<h1>Eliminar corrida</h1>
+
+@* Verifica se nenhuma corrida foi carregada no PageModel. *@
+@if (Model.Race == null)
+{
+    <p>Corrida não encontrada.</p>
+}
+else
+{
+    @* Caixa de aviso para confirmar a remoção. *@
+    <div class="alert alert-warning">
+        Tens a certeza que queres eliminar esta corrida?
+    </div>
+
+    @* Lista de descrição usada para apresentar os dados da corrida antes da eliminação. *@
+    <dl class="row">
+        @* Nome do Grande Prémio. *@
+        <dt class="col-sm-2">Grande Prémio</dt>
+        <dd class="col-sm-10">@Model.Race.GrandPrixName</dd>
+
+        @* Data. *@
+        <dt class="col-sm-2">Data</dt>
+        <dd class="col-sm-10">@Model.Race.Date.ToString("dd/MM/yyyy")</dd>
+
+        @* Nome do circuito. *@
+        <dt class="col-sm-2">Circuito</dt>
+        <dd class="col-sm-10">@Model.Race.Circuit</dd>
+    </dl>
+
+    @* Formulário que envia o pedido POST para confirmar a eliminação. *@
+    <form method="post">
+        @Html.AntiForgeryToken() @* Token anti-falsificação para proteger contra CSRF. *@
+        <input type="hidden" asp-for="Race.Id" />
+
+        @* Botões *@
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+}

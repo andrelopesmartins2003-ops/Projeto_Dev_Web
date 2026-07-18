@@ -1,27 +1,21 @@
-// Importa classes MVC, como IActionResult, usadas para devolver respostas das ações da página.
+// Imports
 using Microsoft.AspNetCore.Mvc;
-// Importa PageModel, a classe base usada pelas páginas Razor.
 using Microsoft.AspNetCore.Mvc.RazorPages;
-// Importa métodos assíncronos e de consulta do Entity Framework, como Include, ToListAsync e AnyAsync.
 using Microsoft.EntityFrameworkCore;
-// Importa o contexto da base de dados da aplicação.
 using Projeto.Data;
-// Importa os modelos de dados usados nesta página, como Driver.
 using Projeto.Models;
 
-// Define o namespace onde ficam agrupadas as páginas Razor relacionadas com pilotos.
 namespace Projeto.Pages.Drivers;
 
 // Classe PageModel responsável pela lógica da página de detalhes de um piloto.
 public class DetailsModel : PageModel
 {
-    // Guarda uma referência ao contexto da base de dados para fazer consultas e alterações.
+    // Variaveis para consultar e alterar o contexto e a base de dados.
     private readonly ApplicationDbContext _context;
 
     // Construtor da página, chamado automaticamente pelo ASP.NET Core através de injeção de dependências.
     public DetailsModel(ApplicationDbContext context)
     {
-        // Atribui o contexto recebido ao campo privado, permitindo aceder à base de dados nos métodos da página.
         _context = context;
     }
 

@@ -1,0 +1,32 @@
+@page "{id:int}"
+@model Projeto.Pages.Races.DetailsModel
+
+@* Título  *@
+<h1>Detalhes da corrida</h1>
+
+@* Verifica se a corrida não foi encontrada no servidor. *@
+@if (Model.Race == null)
+{
+    <p>Corrida não encontrada.</p>
+}
+else
+{
+    @* Lista de descrição usada para mostrar os dados da corrida de forma organizada. *@
+    <dl class="row">
+        @* Nome do Grande Prémio *@
+        <dt class="col-sm-2">Grande Prémio</dt>
+        <dd class="col-sm-10">@Model.Race.GrandPrixName</dd>
+
+        @* Data *@
+        <dt class="col-sm-2">Data</dt>
+        <dd class="col-sm-10">@Model.Race.Date.ToString("dd/MM/yyyy")</dd>
+
+        @* Nome do circuito. *@
+        <dt class="col-sm-2">Circuito</dt>
+        <dd class="col-sm-10">@Model.Race.Circuit</dd>
+    </dl>
+
+    @* Botões *@
+    <a asp-page="Edit" asp-route-id="@Model.Race.Id" class="btn btn-warning">Editar</a>
+    <a asp-page="Index" class="btn btn-secondary">Voltar</a>
+}

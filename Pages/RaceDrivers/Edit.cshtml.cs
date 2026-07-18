@@ -1,31 +1,23 @@
-// Importa as bibliotecas necessárias para esta página.
+// Imports
 using Microsoft.AspNetCore.Authorization;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.AspNetCore.Mvc;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.AspNetCore.Mvc.RazorPages;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.AspNetCore.SignalR;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.EntityFrameworkCore;
-// Importa as bibliotecas necessárias para esta página.
 using Projeto.Data;
-// Importa as bibliotecas necessárias para esta página.
 using Projeto.Hubs;
-// Importa as bibliotecas necessárias para esta página.
 using Projeto.Models;
 
-// Define o namespace onde esta página está organizada.
 namespace Projeto.Pages.RaceDrivers;
 
 // Apenas utilizadores com perfil de Administrador podem aceder.
 [Authorize(Roles = "Admin")]
+
 // Classe responsável pela lógica desta Razor Page.
 public class EditModel : PageModel
 {
-// Contexto da base de dados utilizado para comunicar com o Entity Framework.
+// Variáveis privadas para aceder à base de dados e ao SignalR.
     private readonly ApplicationDbContext _context;
-// Contexto do SignalR utilizado para enviar notificações em tempo real.
     private readonly IHubContext<NotificationHub> _hubContext;
 
 // Contexto do SignalR utilizado para enviar notificações em tempo real.
@@ -95,7 +87,6 @@ public class EditModel : PageModel
             $"Resultado atualizado: {raceDriverToUpdate.Driver?.Name} - {raceDriverToUpdate.Position}"
         );
 
-// Redireciona o utilizador para a página principal.
         return RedirectToPage("Index");
     }
 }

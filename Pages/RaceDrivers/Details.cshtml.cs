@@ -1,23 +1,19 @@
-// Importa as bibliotecas necessárias para esta página.
+// Imports
 using Microsoft.AspNetCore.Mvc;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.AspNetCore.Mvc.RazorPages;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.EntityFrameworkCore;
-// Importa as bibliotecas necessárias para esta página.
 using Projeto.Data;
-// Importa as bibliotecas necessárias para esta página.
 using Projeto.Models;
 
-// Define o namespace onde esta página está organizada.
 namespace Projeto.Pages.RaceDrivers;
 
 // Classe responsável pela lógica desta Razor Page.
 public class DetailsModel : PageModel
 {
-// Contexto da base de dados utilizado para comunicar com o Entity Framework.
+    // Variável privada para aceder à base de dados.
     private readonly ApplicationDbContext _context;
 
+    // Construtor que recebe o contexto da base de dados como parâmetro.
     public DetailsModel(ApplicationDbContext context)
     {
         _context = context;
@@ -26,12 +22,11 @@ public class DetailsModel : PageModel
     public Race? Race { get; set; }
 
     public IList<RaceDriver> RaceDrivers { get; set; } = new List<RaceDriver>();
-
-// Executado quando a página é aberta pelo utilizador.
+    
     public async Task<IActionResult> OnGetAsync(int raceId)
     {
         Race = await _context.Races
-// Procura o registo correspondente na base de dados.
+            // Procura o registo correspondente na base de dados.
             .FirstOrDefaultAsync(r => r.Id == raceId);
 
         if (Race == null)
@@ -39,6 +34,7 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
+        // Procura os registos de RaceDrivers associados à corrida na base de dados.
         RaceDrivers = await _context.RaceDrivers
             .Include(rd => rd.Driver)
             .ThenInclude(d => d.Team)
@@ -46,6 +42,7 @@ public class DetailsModel : PageModel
             .ToListAsync();
 
         RaceDrivers = RaceDrivers
+            // Ordena a lista de RaceDrivers com base na posição, tratando os casos especiais.
             .OrderBy(rd =>
             {
                 if (int.TryParse(rd.Position, out int pos))

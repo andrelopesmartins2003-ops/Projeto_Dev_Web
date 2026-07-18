@@ -1,109 +1,80 @@
-@* Indica que este ficheiro é uma página Razor acessível por rota. *@
 @page
-@* Associa esta página ao PageModel AboutModel, que fica no ficheiro About.cshtml.cs. *@
 @model Projeto.Pages.AboutModel
 
 @{
-    // Define o título da página, usado normalmente no layout e no separador do browser.
-    ViewData["Title"] = "Sobre";
+        ViewData["Title"] = "Sobre";
 }
 
-@* Título principal visível da página Sobre. *@
+@* Título *@
 <h1>Sobre o Projeto</h1>
 
-@* Card Bootstrap que agrupa a informação geral do projeto. *@
 <div class="card p-4 mb-4">
-    @* Subtítulo da secção de informação geral. *@
     <h2>Informação Geral</h2>
-
-    @* Mostra o curso relacionado com o projeto. *@
     <p><strong>Curso:</strong> Licenciatura em Engenharia Informática</p>
-    @* Mostra a disciplina para a qual o projeto foi desenvolvido. *@
     <p><strong>Disciplina:</strong> Desenvolvimento Web</p>
-    @* Mostra o ano letivo do projeto. *@
     <p><strong>Ano letivo:</strong> 2025/2026</p>
-
-    @* Parágrafo que explica o objetivo principal da aplicação. *@
     <p>
         Esta aplicação web foi desenvolvida com o objetivo de gerir informação relacionada
         com Fórmula 1, incluindo equipas, pilotos, corridas e resultados.
     </p>
 </div>
 
-@* Card Bootstrap com a identificação do autor. *@
 <div class="card p-4 mb-4">
-    @* Subtítulo da secção do autor. *@
     <h2>Autor</h2>
-
-    @* Número de estudante do autor do projeto. *@
     <p><strong>Número:</strong> 24868</p>
-    @* Nome do autor do projeto. *@
     <p><strong>Nome:</strong> André Lopes Martins</p>
 </div>
 
-@* Card que apresenta as tecnologias utilizadas no desenvolvimento da aplicação. *@
 <div class="card p-4 mb-4">
-    @* Subtítulo da secção de tecnologias. *@
     <h2>Tecnologias, bibliotecas e frameworks utilizadas</h2>
-
-    @* Lista não ordenada com as tecnologias usadas. *@
     <ul>
-        @* Indica que a interface web foi criada com Razor Pages. *@
         <li>
             <strong>ASP.NET Core Razor Pages</strong> —
             framework utilizada para desenvolver a aplicação web.
             Obtida através do SDK oficial do .NET.
         </li>
 
-        @* Indica que também existem Controllers MVC para disponibilizar uma API REST. *@
         <li>
             <strong>ASP.NET Core MVC Controllers</strong> —
             utilizado para implementar a API REST da aplicação.
             Obtido através do SDK oficial do .NET.
         </li>
 
-        @* Indica que o Entity Framework Core é usado como ORM para comunicar com a base de dados. *@
         <li>
             <strong>Entity Framework Core</strong> —
             utilizado para acesso e manipulação da base de dados através de ORM.
             Obtido através de pacotes NuGet.
         </li>
 
-        @* Indica que a aplicação usa SQLite como motor de base de dados. *@
         <li>
             <strong>SQLite</strong> —
             sistema de base de dados utilizado pela aplicação.
             Integrado através de pacotes NuGet.
         </li>
 
-        @* Indica que o Identity gere autenticação, autorização e roles. *@
         <li>
             <strong>ASP.NET Core Identity</strong> —
             utilizado para autenticação, autorização, gestão de utilizadores e roles.
             Obtido através do SDK oficial do .NET e pacotes NuGet.
         </li>
 
-        @* Indica que o SignalR é usado para notificações em tempo real. *@
         <li>
             <strong>SignalR</strong> —
             utilizado para notificações em tempo real.
             Obtido através do SDK oficial do .NET e biblioteca JavaScript Microsoft SignalR.
         </li>
 
-        @* Indica que o Bootstrap é usado para estilos e responsividade. *@
         <li>
             <strong>Bootstrap</strong> —
             utilizado para estilização, grelha, botões, tabelas e responsividade.
             Incluído no template inicial do ASP.NET Core.
         </li>
 
-        @* Indica que o jQuery vem incluído no template base do ASP.NET Core. *@
         <li>
             <strong>jQuery</strong> —
             biblioteca JavaScript incluída no template inicial do ASP.NET Core.
         </li>
 
-        @* Indica o cliente JavaScript usado para receber notificações SignalR no browser. *@
         <li>
             <strong>Microsoft SignalR JavaScript Client</strong> —
             utilizado no ficheiro <code>_Layout.cshtml</code> para receber notificações em tempo real.
@@ -111,7 +82,6 @@
             <code>https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js</code>.
         </li>
 
-        @* Indica a utilização de código/template de terceiros e ferramentas de apoio. *@
         <li>
             <strong>Código de terceiros</strong> —
             foram utilizados templates base gerados pelo ASP.NET Core Razor Pages e bibliotecas
@@ -121,20 +91,13 @@
     </ul>
 </div>
 
-@* Card que apresenta as credenciais iniciais criadas automaticamente pela aplicação. *@
 <div class="card p-4 mb-4">
-    @* Subtítulo da secção de credenciais. *@
     <h2>Credenciais iniciais</h2>
-
-    @* Explica que os utilizadores iniciais são criados através do ficheiro SeedData.cs. *@
     <p>
         A aplicação cria automaticamente dois utilizadores iniciais através do ficheiro
         <code>SeedData.cs</code>.
     </p>
-
-    @* Tabela Bootstrap usada para organizar as credenciais iniciais. *@
     <table class="table">
-        @* Cabeçalho da tabela com o significado de cada coluna. *@
         <thead>
             <tr>
                 <th>Tipo de utilizador</th>
@@ -143,16 +106,13 @@
                 <th>Permissões</th>
             </tr>
         </thead>
-        @* Corpo da tabela com os dados dos utilizadores iniciais. *@
         <tbody>
-            @* Linha referente ao utilizador administrador. *@
             <tr>
                 <td>Administrador</td>
                 <td>admin@f1.pt</td>
                 <td>Admin123!</td>
                 <td>Criar, editar, eliminar e consultar dados</td>
             </tr>
-            @* Linha referente ao utilizador comum. *@
             <tr>
                 <td>Utilizador</td>
                 <td>user@f1.pt</td>
@@ -163,12 +123,8 @@
     </table>
 </div>
 
-@* Card que resume as principais funcionalidades da aplicação. *@
 <div class="card p-4 mb-4">
-    @* Subtítulo da secção de funcionalidades. *@
     <h2>Funcionalidades principais</h2>
-
-    @* Lista das funcionalidades implementadas no projeto. *@
     <ul>
         <li>Gestão de equipas de Fórmula 1</li>
         <li>Gestão de pilotos</li>

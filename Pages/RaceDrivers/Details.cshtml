@@ -1,8 +1,7 @@
-@* Define esta página como uma Razor Page. *@
 @page
-@* Liga esta vista ao respetivo PageModel (.cs). *@
 @model Projeto.Pages.RaceDrivers.DetailsModel
 
+@* Título *@
 <h1>Resultados - @Model.Race?.GrandPrixName</h1>
 
 <p>
@@ -13,7 +12,7 @@
     <strong>Circuito:</strong> @Model.Race?.Circuit
 </p>
 
-<!-- Tabela utilizada para apresentar os dados. -->
+@* Tabela de resultados *@
 <table class="table">
     <thead>
         <tr>
@@ -22,6 +21,13 @@
             <th>Equipa</th>
             <th>Pontos</th>
             <th>Ações</th>
+            <p>
+                <a asp-page="Create"
+                    asp-route-raceId="@Model.Race.Id"
+                    class="btn btn-success">
+                        Adicionar resultado 
+                </a>
+            </p> 
         </tr>
     </thead>
 
@@ -53,11 +59,9 @@
 
                     @points
                 </td>
-                                <td>
-@* Executa este bloco apenas se a condição for verdadeira. *@
+                <td>
                     @if (User.IsInRole("Admin"))
                     {
-<!-- Link para outra Razor Page da aplicação. -->
                         <a asp-page="Edit"
                         asp-route-raceId="@item.RaceId"
                         asp-route-driverId="@item.DriverId"
@@ -65,7 +69,6 @@
                             Editar
                         </a>
 
-<!-- Link para outra Razor Page da aplicação. -->
                         <a asp-page="Delete"
                         asp-route-raceId="@item.RaceId"
                         asp-route-driverId="@item.DriverId"
@@ -73,11 +76,10 @@
                             Eliminar
                         </a>
                     }
-                </td>
+                </td>                       
             </tr>
         }
     </tbody>
 </table>
 
-<!-- Link para outra Razor Page da aplicação. -->
 <a asp-page="Index" class="btn btn-secondary">Voltar</a>

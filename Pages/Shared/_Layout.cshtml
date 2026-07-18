@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+
+<html lang="pt">
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"] - Projeto F1</title>
+
+    <script type="importmap"></script>
+
+    @* Importa o CSS do Bootstrap, usado para grelha, navbar, botões, espaçamentos e responsividade. *@
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    @* Importa o CSS global da aplicação; asp-append-version adiciona uma versão ao URL para evitar cache antigo. *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @* Importa os estilos específicos gerados/associados ao projeto ASP.NET Core. *@
+    <link rel="stylesheet" href="~/Projeto.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                @* Link principal/brand da aplicação; usa Tag Helpers para navegar para a página Index. *@
+                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                    F1 Manager
+                </a>
+
+                @* Botão apresentado em ecrãs pequenos para abrir/fechar o menu de navegação. *@
+                <button class="navbar-toggler"
+                        @* Indica que este botão não submete formulários; apenas controla a interface. *@
+                        type="button"
+                        @* Ativa o comportamento de collapse do Bootstrap. *@
+                        data-bs-toggle="collapse"
+                        @* Define o elemento/menu que será aberto ou fechado pelo botão. *@
+                        data-bs-target=".navbar-collapse"
+                        @* Melhora acessibilidade, associando o botão ao conteúdo controlado. *@
+                        aria-controls="navbarSupportedContent"
+                        @* Indica inicialmente que o menu não está expandido. *@
+                        aria-expanded="false"
+                        @* Texto de acessibilidade para leitores de ecrã. *@
+                        aria-label="Toggle navigation">
+
+                    @* Ícone visual do botão de menu em dispositivos móveis. *@
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                @* Área do menu que pode colapsar em ecrãs pequenos e ficar visível em ecrãs maiores. *@
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                    @* Lista principal de links da aplicação. *@
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @* Item de navegação para a página inicial. *@
+                        <li class="nav-item">
+                            @* Link Razor para a página /Index. *@
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-page="/Index">
+                                Home
+                            </a>
+                        </li>
+
+                        @* Item de navegação para a listagem de equipas. *@
+                        <li class="nav-item">
+                            @* Link Razor para a página de equipas. *@
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-page="/Teams/Index">
+                                Equipas
+                            </a>
+                        </li>
+
+                        @* Item de navegação para a listagem de pilotos. *@
+                        <li class="nav-item">
+                            @* Link Razor para a página de pilotos. *@
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-page="/Drivers/Index">
+                                Pilotos
+                            </a>
+                        </li>
+
+                        @* Item de navegação para a listagem de corridas. *@
+                        <li class="nav-item">
+                            @* Link Razor para a página de corridas. *@
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-page="/Races/Index">
+                                Corridas
+                            </a>
+                        </li>
+
+                        @* Item de navegação para os resultados das corridas. *@
+                        <li class="nav-item">
+                            @* Link Razor para a página que relaciona corridas e pilotos. *@
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-page="/RaceDrivers/Index">
+                                Resultados
+                            </a>
+                        </li>
+
+                        @* Item de navegação para a página informativa About. *@
+                        <li class="nav-item">
+                            @* Link Razor para a página About. *@
+                            <a class="nav-link text-dark"
+                               asp-area=""
+                               asp-page="/About">
+                                About
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    @* Lista de autenticação alinhada à direita da navbar. *@
+                    <ul class="navbar-nav ms-auto">
+
+                        @* Verifica se existe identidade de utilizador e se o utilizador está autenticado. *@
+                        @if (User.Identity != null && User.Identity.IsAuthenticated)
+                        {
+                            @* Mostra o nome do utilizador autenticado. *@
+                            <li class="nav-item">
+
+                                @* Texto de saudação apresentado na navbar. *@
+                                <span class="nav-link text-dark">
+                                    Olá, @User.Identity.Name!
+                                </span>
+
+                            </li>
+
+                            @* Mostra o formulário de logout quando o utilizador tem sessão iniciada. *@
+                            <li class="nav-item">
+
+                                @* Formulário que envia pedido POST para a página Logout do Identity. *@
+                                <form asp-area="Identity"
+                                      asp-page="/Account/Logout"
+                                      asp-route-returnUrl="@Url.Page("/Index", new { area = "" })"
+                                      method="post">
+
+                                    @* Botão que submete o formulário e termina a sessão do utilizador. *@
+                                    <button type="submit"
+                                            class="nav-link btn btn-link text-dark">
+                                        Logout
+                                    </button>
+
+                                </form>
+
+                            </li>
+                        }
+                        else
+                        {
+                            @* Caso não exista sessão iniciada, mostra o link de registo. *@
+                            <li class="nav-item">
+
+                                @* Link para a página Register do ASP.NET Identity. *@
+                                <a class="nav-link text-dark"
+                                   asp-page="/Account/Register">
+                                    Register
+                                </a>
+
+                            </li>
+
+                            @* Caso não exista sessão iniciada, mostra também o link de login. *@
+                            <li class="nav-item">
+
+                                @* Link para a página Login do ASP.NET Identity. *@
+                                <a class="nav-link text-dark"
+                                   asp-page="/Account/Login">
+                                    Login
+                                </a>
+
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+    </header>
+
+    @* Área principal onde é renderizado o conteúdo específico de cada página. *@
+    <main class="container flex-grow-1 pb-3">
+        @* RenderBody insere aqui o conteúdo da página Razor que está a usar este layout. *@
+        @RenderBody()
+    </main>
+
+    @* Importa jQuery, usado por validações e por alguns componentes/scripts. *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    @* Importa o JavaScript do Bootstrap, necessário para navbar colapsável e componentes interativos. *@
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @* Importa o JavaScript geral da aplicação; asp-append-version ajuda a atualizar cache quando o ficheiro muda. *@
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @* Importa a biblioteca SignalR a partir de uma CDN para permitir notificações em tempo real. *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+
+    <script>
+
+        // Cria uma ligação SignalR para o hub configurado no backend em /notificationHub.
+        const connection = new signalR.HubConnectionBuilder()
+            // Define o endereço do hub ao qual o browser se deve ligar.
+            .withUrl("/notificationHub")
+            // Constrói o objeto de ligação com a configuração anterior.
+            .build();
+
+        // Regista a função que será executada quando o servidor enviar uma notificação chamada ReceiveNotification.
+        connection.on("ReceiveNotification", function (message) {
+
+            // Cria dinamicamente um elemento HTML <div> para apresentar a notificação no ecrã.
+            const notification = document.createElement("div");
+
+            // Aplica classes Bootstrap para a notificação ter aspeto de alerta, posição fixa e sombra.
+            notification.className =
+                "alert alert-success position-fixed top-0 end-0 m-3 shadow";
+
+            // Garante que a notificação aparece por cima dos restantes elementos da página.
+            notification.style.zIndex = "9999";
+
+            // Define uma largura mínima para a caixa da notificação ser legível.
+            notification.style.minWidth = "300px";
+
+            // Define o conteúdo HTML da notificação, incluindo o texto enviado pelo servidor.
+            notification.innerHTML = "<strong>Notificação</strong><br>" + message;
+
+            // Adiciona a notificação ao corpo da página para ficar visível ao utilizador.
+            document.body.appendChild(notification);
+
+            // Agenda a remoção automática da notificação após alguns segundos.
+            setTimeout(function () {
+
+                // Remove a notificação do HTML, fazendo-a desaparecer do ecrã.
+                notification.remove();
+
+            }, 4000); // 4000 milissegundos correspondem a 4 segundos.
+
+        });
+
+        // Inicia a ligação ao hub SignalR.
+        connection.start()
+            // Executa esta função se a ligação for estabelecida com sucesso.
+            .then(function () {
+
+                // Escreve uma mensagem na consola do browser para ajudar no debug.
+                console.log("Ligado ao SignalR.");
+
+            })
+            // Executa esta função se ocorrer erro ao tentar ligar ao hub.
+            .catch(function (err) {
+
+                // Mostra o erro na consola para facilitar a identificação do problema.
+                console.error(err.toString());
+
+            });
+
+    </script>
+
+    @* Renderiza secções opcionais de scripts definidas pelas páginas individuais. *@
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

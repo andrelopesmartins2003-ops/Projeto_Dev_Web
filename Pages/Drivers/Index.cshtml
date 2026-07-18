@@ -1,23 +1,19 @@
-@* Define esta página como uma Razor Page e, quando existe {id:int}, indica que recebe um Id inteiro pela rota. *@
 @page
-@* Liga a página visual ao respetivo PageModel, onde está a lógica em C#. *@
 @model Projeto.Pages.Drivers.IndexModel
 
-@* Título principal apresentado no topo da página. *@
+@* Título *@
 <h1>Classificação de Pilotos</h1>
 
 @* Verifica se o utilizador atual é Admin para mostrar ações restritas. *@
 @if (User.IsInRole("Admin"))
 {
     <p>
-        @* Link para a página onde o administrador pode criar um novo piloto. *@
         <a asp-page="Create" class="btn btn-primary">Criar novo piloto</a>
     </p>
 }
 
-@* Tabela Bootstrap usada para mostrar a classificação dos pilotos. *@
+@* Tabela de classificação dos pilotos. *@
 <table class="table">
-    @* Cabeçalho da tabela, onde são definidos os nomes das colunas. *@
     <thead>
         <tr>
             <th>Posição</th>
@@ -36,24 +32,17 @@
             var position = 1;
         }
 
-        @* Percorre todos os pilotos carregados no PageModel para criar uma linha por piloto. *@
+        @* Percorre todos os pilotos e a sua informação para ser carregada para a página de detalhes *@
         @foreach (var driver in Model.Drivers)
         {
             <tr>
-                @* Mostra a posição atual do piloto na classificação. *@
                 <td>@position</td>
-                @* Mostra o nome do piloto na tabela. *@
                 <td>@driver.Name</td>
-                @* Mostra a nacionalidade do piloto na tabela. *@
                 <td>@driver.Nationality</td>
-                @* Mostra a equipa do piloto na tabela. *@
                 <td>@driver.TeamName</td>
-                @* Mostra o total de pontos do piloto em destaque. *@
                 <td><strong>@driver.Points</strong></td>
                 <td>
-                    @* Cria um link para a página de detalhes do piloto. *@
                     <a asp-page="Details"
-                       @* Passa o Id do piloto selecionado para a rota da página de destino. *@
                        asp-route-id="@driver.Id"
                        class="btn btn-primary btn-sm">
                         Detalhes
@@ -64,14 +53,12 @@
                     {
                         @* Cria um link para a página de edição do piloto selecionado. *@
                         <a asp-page="Edit"
-                           @* Passa o Id do piloto selecionado para a rota da página de destino. *@
                            asp-route-id="@driver.Id"
                            class="btn btn-warning btn-sm">
                             Editar
                         </a>
 
                         <a asp-page="Delete"
-                           @* Passa o Id do piloto selecionado para a rota da página de destino. *@
                            asp-route-id="@driver.Id"
                            class="btn btn-danger btn-sm">
                             Eliminar

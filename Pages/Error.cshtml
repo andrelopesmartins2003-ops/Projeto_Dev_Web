@@ -1,14 +1,12 @@
-@* Indica que este ficheiro é uma página Razor acessível por rota. *@
 @page
-@* Associa esta página ao ErrorModel, definido no ficheiro Error.cshtml.cs. *@
 @model ErrorModel
 @{
-    // Define o título da página de erro.
     ViewData["Title"] = "Error";
 }
 
-@* Mostra o título principal da página de erro com classe Bootstrap de perigo. *@
+@* Página de erro que é exibida quando ocorre um erro no processamento de um pedido HTTP.*@
 <h1 class="text-danger">Error.</h1>
+
 @* Mostra uma mensagem geral indicando que ocorreu um erro no processamento do pedido. *@
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 

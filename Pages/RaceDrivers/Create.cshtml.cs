@@ -1,33 +1,24 @@
-// Importa as bibliotecas necessárias para esta página.
+// Imports
 using Microsoft.AspNetCore.Authorization;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.AspNetCore.Mvc;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.AspNetCore.Mvc.RazorPages;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.AspNetCore.Mvc.Rendering;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.AspNetCore.SignalR;
-// Importa as bibliotecas necessárias para esta página.
 using Microsoft.EntityFrameworkCore;
-// Importa as bibliotecas necessárias para esta página.
 using Projeto.Data;
-// Importa as bibliotecas necessárias para esta página.
 using Projeto.Hubs;
-// Importa as bibliotecas necessárias para esta página.
 using Projeto.Models;
 
-// Define o namespace onde esta página está organizada.
 namespace Projeto.Pages.RaceDrivers;
 
 // Apenas utilizadores com perfil de Administrador podem aceder.
 [Authorize(Roles = "Admin")]
+
 // Classe responsável pela lógica desta Razor Page.
 public class CreateModel : PageModel
 {
-// Contexto da base de dados utilizado para comunicar com o Entity Framework.
+//Variáveis privadas para aceder à base de dados e ao SignalR.
     private readonly ApplicationDbContext _context;
-// Contexto do SignalR utilizado para enviar notificações em tempo real.
     private readonly IHubContext<NotificationHub> _hubContext;
 
 // Contexto do SignalR utilizado para enviar notificações em tempo real.
@@ -44,9 +35,15 @@ public class CreateModel : PageModel
     public SelectList DriverOptions { get; set; } = default!;
 
 // Executado quando a página é aberta pelo utilizador.
-    public async Task<IActionResult> OnGetAsync()
+    public async Task<IActionResult> OnGetAsync(int? raceId)
     {
+        if (raceId.HasValue)
+        {
+            RaceDriver.RaceId = raceId.Value;
+        }
+
         await LoadOptionsAsync();
+
         return Page();
     }
 
@@ -71,12 +68,12 @@ public class CreateModel : PageModel
 
 // Adiciona o novo registo à base de dados.
         _context.RaceDrivers.Add(RaceDriver);
+        
 // Guarda definitivamente as alterações na base de dados.
         await _context.SaveChangesAsync();
 
-// Procura o registo correspondente na base de dados.
+// Procura os registos na base de dados.
         var race = await _context.Races.FindAsync(RaceDriver.RaceId);
-// Procura o registo correspondente na base de dados.
         var driver = await _context.Drivers.FindAsync(RaceDriver.DriverId);
 
 // Envia uma notificação em tempo real a todos os clientes ligados.
@@ -85,10 +82,10 @@ public class CreateModel : PageModel
             $"Resultado adicionado: {driver?.Name} em {race?.GrandPrixName} - posição {RaceDriver.Position}"
         );
 
-// Redireciona o utilizador para a página principal.
         return RedirectToPage("Index");
     }
 
+    // Carrega as opções para os campos de seleção (dropdowns) na página.
     private async Task LoadOptionsAsync()
     {
         var races = await _context.Races

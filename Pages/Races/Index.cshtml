@@ -1,0 +1,58 @@
+@page
+@model Projeto.Pages.Races.IndexModel
+
+@* Título  *@
+<h1>Corridas</h1>
+
+@* Verifica se o utilizador autenticado tem o papel de Admin. *@
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-page="Create" class="btn btn-primary">Criar nova corrida</a>
+    </p>
+}
+
+@* Tabela das corridas. *@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Grande Prémio</th>
+            <th>Data</th>
+            <th>Circuito</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+@* Percorre todas as corridas existentes na lista e mostra os detalhes em cada linha. *@
+@foreach (var race in Model.Races)
+{
+        <tr>
+            <td>@race.GrandPrixName</td>
+            <td>@race.Date.ToShortDateString()</td>
+            <td>@race.Circuit</td>
+            <td>
+                <a asp-page="Details"
+                   asp-route-id="@race.Id"
+                   class="btn btn-primary btn-sm">
+                    Detalhes
+                </a>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-page="Edit"
+                       asp-route-id="@race.Id"
+                       class="btn btn-warning btn-sm">
+                        Editar
+                    </a>
+
+                    <a asp-page="Delete"
+                       asp-route-id="@race.Id"
+                       class="btn btn-danger btn-sm">
+                        Eliminar
+                    </a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

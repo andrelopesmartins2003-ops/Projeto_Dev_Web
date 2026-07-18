@@ -1,0 +1,26 @@
+@page "{id:int}"
+@model Projeto.Pages.Teams.DetailsModel
+
+<h1>Detalhes da equipa</h1>
+
+@* Se o PageModel não encontrar a equipa, mostra uma mensagem de erro. *@
+@if (Model.Team == null)
+{
+    <p>Equipa não encontrada.</p>
+}
+else
+{
+    @* Apresenta os principais dados da equipa em formato de lista de descrição. *@
+    <dl class="row">
+        <dt class="col-sm-2">Nome</dt>
+        <dd class="col-sm-10">@Model.Team.Name</dd>
+
+        <dt class="col-sm-2">País</dt>
+        <dd class="col-sm-10">@Model.Team.Country</dd>
+    </dl>
+
+    @* Link para editar a equipa atual, passando o id pela rota. *@
+    <a asp-page="Edit" asp-route-id="@Model.Team.Id" class="btn btn-warning">Editar</a>
+    @* Link para voltar à listagem de equipas. *@
+    <a asp-page="Index" class="btn btn-secondary">Voltar</a>
+}

@@ -1,0 +1,40 @@
+@page
+@model Projeto.Pages.Races.CreateModel
+
+@* Título *@
+<h1>Criar corrida</h1>
+
+@* Formulário que envia os dados por POST para o método OnPostAsync do PageModel. *@
+<form method="post">
+    @Html.AntiForgeryToken() @* Token anti-falsificação para proteger contra CSRF. *@
+
+    @*Grande Prémio*@
+    <div class="form-group mb-3">
+        <label asp-for="Race.GrandPrixName">Grande Prémio</label>
+        <input asp-for="Race.GrandPrixName" class="form-control" />
+        <span asp-validation-for="Race.GrandPrixName" class="text-danger"></span>
+    </div>
+
+    @* Data *@
+    <div class="form-group mb-3">
+        <label asp-for="Race.Date">Data</label>
+        <input asp-for="Race.Date" type="date" class="form-control" />
+        <span asp-validation-for="Race.Date" class="text-danger"></span>
+    </div>
+
+    @* Circuito *@
+    <div class="form-group mb-3">
+        <label asp-for="Race.Circuit">Circuito</label>
+        <input asp-for="Race.Circuit" class="form-control" />
+        <span asp-validation-for="Race.Circuit" class="text-danger"></span>
+    </div>
+
+    @* Butões. *@
+    <button type="submit" class="btn btn-success">Guardar</button>
+    <a asp-page="Index" class="btn btn-secondary">Voltar</a>
+</form>
+
+@* Scripts *@
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

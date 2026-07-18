@@ -1,0 +1,61 @@
+@* Importa as classes do ASP.NET Identity, usadas para autenticação e gestão de utilizadores. *@
+@using Microsoft.AspNetCore.Identity
+
+@* Injeta o SignInManager, que permite verificar se o utilizador tem sessão iniciada. *@
+@inject SignInManager<IdentityUser> SignInManager
+
+@* Injeta o UserManager, que permite aceder e gerir dados do utilizador autenticado. *@
+@inject UserManager<IdentityUser> UserManager
+
+@* Lista de navegação Bootstrap para apresentar opções de conta na navbar. *@
+<ul class="navbar-nav">
+
+@* Verifica se o utilizador atual está autenticado. *@
+@if (SignInManager.IsSignedIn(User))
+{
+    @* Se estiver autenticado, mostra uma saudação com o nome/email do utilizador. *@
+    <li class="nav-item">
+        @* Elemento visual da navbar usado para apresentar texto em vez de link. *@
+        <span class="nav-link text-dark">
+            Olá, @User.Identity?.Name!
+        </span>
+    </li>
+
+    @* Mostra a opção de terminar sessão. *@
+    <li class="nav-item">
+        @* Formulário de logout; por segurança, o logout é feito por POST. *@
+        <form asp-area="Identity"
+              @* Indica que o formulário usa a página Logout da área Identity. *@
+              asp-page="/Account/Logout"
+              @* Define para onde o utilizador volta depois de terminar sessão. *@
+              asp-route-returnUrl="@Url.Page("/Index", new { area = "" })"
+              @* Usa POST para executar a ação de logout. *@
+              method="post">
+            @* Botão que submete o formulário e termina a sessão. *@
+            <button type="submit" class="nav-link btn btn-link text-dark">
+                Terminar Sessão
+            </button>
+        </form>
+    </li>
+}
+else
+{
+    @* Se o utilizador não estiver autenticado, mostra a opção de registo. *@
+    <li class="nav-item">
+        @* Link para a página de criação de conta do ASP.NET Identity. *@
+        <a class="nav-link text-dark"
+            asp-page="/Account/Register">
+            Criar conta
+        </a>
+    </li>
+
+    @* Se o utilizador não estiver autenticado, mostra também a opção de login. *@
+    <li class="nav-item">
+        @* Link para a página de entrada/autenticação do ASP.NET Identity. *@
+        <a class="nav-link text-dark"
+           asp-page="/Account/Login">
+            Iniciar Sessão
+        </a>
+    </li>
+}
+</ul>

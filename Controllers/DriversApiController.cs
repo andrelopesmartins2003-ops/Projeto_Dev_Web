@@ -1,12 +1,15 @@
-using Microsoft.AspNetCore.Mvc; // Importa funcionalidades para criar controllers e devolver respostas HTTP, como Ok(), NotFound() e BadRequest().
-using Microsoft.EntityFrameworkCore; // Permite usar métodos assíncronos e funcionalidades do Entity Framework Core, como Include(), ToListAsync() e EntityState.
-using Projeto.Data; // Dá acesso ao ApplicationDbContext, que representa a ligação à base de dados da aplicação.
-using Projeto.Models; // Dá acesso aos modelos da aplicação, neste caso principalmente o modelo Driver.
+using Microsoft.AspNetCore.Mvc; 
+using Microsoft.EntityFrameworkCore; 
+using Projeto.Data; 
+using Projeto.Models; 
+using Microsoft.AspNetCore.Authorization;
+using Projeto.Data;
 
 namespace Projeto.Controllers; // Define o namespace onde este controller está organizado dentro do projeto.
 
 [Route("api/drivers")] // Define a rota base deste controller; todos os endpoints começam por /api/drivers.
 [ApiController] // Indica que esta classe é um controller de API, ativando validações e comportamentos automáticos do ASP.NET Core.
+[Authorize] // Requer autenticação para aceder aos endpoints deste controller.
 public class DriversApiController : ControllerBase // Controller responsável por disponibilizar operações CRUD para pilotos através da API.
 {
     private readonly ApplicationDbContext _context; // Guarda a instância do contexto da base de dados usada em todos os métodos do controller.
@@ -61,6 +64,7 @@ public class DriversApiController : ControllerBase // Controller responsável po
     }
 
     [HttpPost] // Associa este método a pedidos HTTP POST para criar um novo piloto.
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Driver>> PostDriver(Driver driver) // Recebe um objeto Driver enviado no corpo do pedido.
     {
         _context.Drivers.Add(driver); // Adiciona o novo piloto ao contexto para ser inserido na base de dados.
@@ -70,6 +74,7 @@ public class DriversApiController : ControllerBase // Controller responsável po
     }
 
     [HttpPut("{id}")] // Associa este método a pedidos HTTP PUT para /api/drivers/{id}, usados para atualizar um piloto.
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> PutDriver(int id, Driver driver) // Recebe o Id da rota e os novos dados do piloto no corpo do pedido.
     {
         if (id != driver.Id) // Confirma se o Id da rota corresponde ao Id do objeto recebido.
@@ -84,6 +89,7 @@ public class DriversApiController : ControllerBase // Controller responsável po
     }
 
     [HttpDelete("{id}")] // Associa este método a pedidos HTTP DELETE para /api/drivers/{id}.
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteDriver(int id) // Método assíncrono que elimina um piloto pelo seu Id.
     {
         var driver = await _context.Drivers.FindAsync(id); // Procura rapidamente o piloto pela chave primária.

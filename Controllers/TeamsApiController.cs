@@ -1,12 +1,15 @@
-using Microsoft.AspNetCore.Mvc; // Importa classes necessárias para criar controllers e respostas HTTP.
-using Microsoft.EntityFrameworkCore; // Permite usar métodos assíncronos do Entity Framework Core.
-using Projeto.Data; // Dá acesso ao ApplicationDbContext, usado para comunicar com a base de dados.
-using Projeto.Models; // Dá acesso ao modelo Team.
+using Microsoft.AspNetCore.Mvc; 
+using Microsoft.EntityFrameworkCore; 
+using Projeto.Data; 
+using Projeto.Models; 
+using Microsoft.AspNetCore.Authorization;
+using Projeto.Data;
 
 namespace Projeto.Controllers; // Define o namespace onde este controller está organizado.
 
 [Route("api/teams")] // Define a rota base deste controller: /api/teams.
 [ApiController] // Indica que a classe é um controller de API do ASP.NET Core.
+[Authorize] // Requer autenticação para aceder aos endpoints deste controller.
 public class TeamsApiController : ControllerBase // Controller responsável por gerir equipas através da API.
 {
     private readonly ApplicationDbContext _context; // Contexto da base de dados usado para aceder às equipas.
@@ -36,6 +39,7 @@ public class TeamsApiController : ControllerBase // Controller responsável por 
     }
 
     [HttpPost] // Associa este método a pedidos POST para criar uma equipa.
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Team>> PostTeam(Team team) // Recebe a nova equipa no corpo do pedido.
     {
         _context.Teams.Add(team); // Adiciona a nova equipa ao contexto.
@@ -45,6 +49,7 @@ public class TeamsApiController : ControllerBase // Controller responsável por 
     }
 
     [HttpPut("{id}")] // Associa este método a pedidos PUT para atualizar uma equipa.
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> PutTeam(int id, Team team) // Recebe o Id da rota e os dados atualizados da equipa.
     {
         if (id != team.Id) // Verifica se o Id da rota corresponde ao Id da equipa recebida.
@@ -59,6 +64,7 @@ public class TeamsApiController : ControllerBase // Controller responsável por 
     }
 
     [HttpDelete("{id}")] // Associa este método a pedidos DELETE para /api/teams/{id}.
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteTeam(int id) // Elimina uma equipa pelo seu Id.
     {
         var team = await _context.Teams.FindAsync(id); // Procura a equipa pela chave primária.

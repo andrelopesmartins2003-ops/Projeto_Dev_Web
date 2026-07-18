@@ -1,12 +1,14 @@
-using Microsoft.AspNetCore.Mvc; // Importa classes para criar controllers e respostas HTTP.
-using Microsoft.EntityFrameworkCore; // Permite usar Entity Framework Core e métodos assíncronos de consulta/alteração.
-using Projeto.Data; // Permite usar o ApplicationDbContext para aceder à base de dados.
-using Projeto.Models; // Permite usar o modelo RaceDriver.
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Projeto.Models;
+using Microsoft.AspNetCore.Authorization;
+using Projeto.Data;
 
 namespace Projeto.Controllers; // Define o namespace dos controllers da aplicação.
 
 [Route("api/racedrivers")] // Define a rota base da API para resultados/associações entre corridas e pilotos.
 [ApiController] // Ativa funcionalidades próprias de controllers de API, incluindo validação automática de modelos.
+[Authorize] // Requer autenticação para aceder aos endpoints deste controller.
 public class RaceDriversApiController : ControllerBase // Controller responsável pela relação entre corridas e pilotos.
 {
     private readonly ApplicationDbContext _context; // Contexto da base de dados usado para consultar e alterar resultados.
@@ -59,6 +61,7 @@ public class RaceDriversApiController : ControllerBase // Controller responsáve
     }
 
     [HttpPost] // Associa este método a pedidos POST para criar um novo resultado.
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<RaceDriver>> PostRaceDriver(RaceDriver raceDriver) // Recebe os dados da associação corrida-piloto.
     {
         var exists = await _context.RaceDrivers.AnyAsync(rd => // Verifica se já existe um registo com a mesma corrida e o mesmo piloto.
@@ -81,6 +84,7 @@ public class RaceDriversApiController : ControllerBase // Controller responsáve
     }
 
     [HttpPut("{raceId}/{driverId}")] // Define endpoint PUT com chave composta para atualizar um resultado.
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> PutRaceDriver(int raceId, int driverId, RaceDriver raceDriver) // Recebe os Ids da rota e os novos dados no corpo do pedido.
     {
         if (raceId != raceDriver.RaceId || driverId != raceDriver.DriverId) // Confirma se os Ids da rota coincidem com os Ids do objeto recebido.
@@ -95,6 +99,7 @@ public class RaceDriversApiController : ControllerBase // Controller responsáve
     }
 
     [HttpDelete("{raceId}/{driverId}")] // Define endpoint DELETE com Id da corrida e Id do piloto.
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteRaceDriver(int raceId, int driverId) // Elimina uma associação específica entre corrida e piloto.
     {
         var raceDriver = await _context.RaceDrivers.FindAsync(raceId, driverId); // Procura o registo pela chave composta.

@@ -1,12 +1,14 @@
-using Microsoft.AspNetCore.Mvc; // Importa funcionalidades para criar endpoints de API e respostas HTTP.
-using Microsoft.EntityFrameworkCore; // Permite usar consultas assíncronas com Entity Framework Core.
-using Projeto.Data; // Dá acesso ao ApplicationDbContext da aplicação.
-using Projeto.Models; // Dá acesso ao modelo Race.
+using Microsoft.AspNetCore.Mvc; 
+using Microsoft.EntityFrameworkCore; 
+using Projeto.Models; 
+using Microsoft.AspNetCore.Authorization;
+using Projeto.Data;
 
 namespace Projeto.Controllers; // Define o namespace onde o controller está localizado.
 
 [Route("api/races")] // Define a rota base deste controller: /api/races.
 [ApiController] // Indica que esta classe funciona como controller de API.
+[Authorize] // Requer autenticação para aceder aos endpoints deste controller.
 public class RacesApiController : ControllerBase // Controller responsável por gerir corridas através da API.
 {
     private readonly ApplicationDbContext _context; // Contexto da base de dados usado para consultar e alterar corridas.
@@ -67,6 +69,7 @@ public class RacesApiController : ControllerBase // Controller responsável por 
     }
 
     [HttpPost] // Associa este método a pedidos POST para criar uma nova corrida.
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<Race>> PostRace(Race race) // Recebe uma corrida enviada no corpo do pedido.
     {
         _context.Races.Add(race); // Adiciona a nova corrida ao contexto.
@@ -76,6 +79,7 @@ public class RacesApiController : ControllerBase // Controller responsável por 
     }
 
     [HttpPut("{id}")] // Associa este método a pedidos PUT para atualizar uma corrida existente.
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> PutRace(int id, Race race) // Recebe o Id da rota e os novos dados da corrida.
     {
         if (id != race.Id) // Confirma se o Id da rota é igual ao Id do objeto recebido.
@@ -90,6 +94,7 @@ public class RacesApiController : ControllerBase // Controller responsável por 
     }
 
     [HttpDelete("{id}")] // Associa este método a pedidos DELETE para /api/races/{id}.
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteRace(int id) // Remove uma corrida pelo seu Id.
     {
         var race = await _context.Races.FindAsync(id); // Procura a corrida pela chave primária.
